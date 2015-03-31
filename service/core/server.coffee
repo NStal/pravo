@@ -26,4 +26,4 @@ require("./api/base")
 require("./api/artwork")
 require("./api/user")
 require("./api/device")
-server.listen 8080
+server.listen App.settings.port,App.settings.host

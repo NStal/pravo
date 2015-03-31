@@ -2,10 +2,11 @@ request = require "request"
 jar = request.jar()
 correctPassword = "12344321"
 correctEmail = "lili.th@gmail.com"
+settings = require "../settings"
 mkurl = (path)->
     if path[0] is "/"
         path = path.substring(1)
-    return "http://localhost:8080/#{path}"
+    return "http://localhost:#{settings.port}/#{path}"
 resError = (res,data)->
 
 resOK = (res,data,message)->
