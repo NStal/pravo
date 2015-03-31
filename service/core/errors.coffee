@@ -1,4 +1,4 @@
-require("error-doc").create()
+module.exports = require("error-doc").create()
     .define("NotFound")
     .define("AlreadyExists")
     .define("InvalidParameters")

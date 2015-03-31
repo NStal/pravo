@@ -12,11 +12,12 @@
     "express-session": "^1.10.4",
     "mongodb": "^1.4.34",
     "mongoose": "^3.8.25",
+    "request": "^2.54.0",
     "validator": "^3.35.0"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha -R spec -b --compilers coffee:coffee-script/register ./test/test.coffee"
   },
   "author": "",
   "license": "ISC"

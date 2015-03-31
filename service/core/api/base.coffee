@@ -11,7 +11,7 @@ server.use (req,res,next)->
             state:false
             error:err
         }
-    req.success = (data,code)->
+    res.success = (data,code)->
         res.json {
             state:true
             data:data

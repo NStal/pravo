@@ -1,4 +1,5 @@
 App = require "../app"
+Errors = App.Errors
 server = App.server
 server.get "/devices",(req,res,next)->
     res.success req.user.devices or []
@@ -10,7 +11,7 @@ server.post "/devices",(req,res,next)->
         if err
             res.error new Errors.ServerError "server error",err
             return
-        res.success device.toJSON()
+        res.success device.toJSON({virtuals:true})
 
 server.param "deviceId",(req,res,next)->
     for device,index in req.user.devices
@@ -26,7 +27,7 @@ server.delete "/devices/:deviceId",(req,res,next)->
         if err
             res.error new Errors.ServerError "server error",err
             return
-        res.success req.device.toJSON()
+        res.success req.device.toJSON({virtuals:true})
         return
 server.put "/devices/:deviceId/wallpaper",(req,res,next)->
     artwork = req.body.artwork

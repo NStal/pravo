@@ -40,7 +40,8 @@ UserSchema = new Schema {
 UserSchema.path("email").validate validator.isEmail
 UserSchema.methods.getClientJson = ()->
     result = @toJSON()
-    delete result.password()
+    delete result.password
+    return result
 
 UserSchema.statics.computePasswordHash = (password)->
     hash1 = crypto.createHash("md5").update(password+App.settings.passwordSalt).digest("hex")
@@ -56,8 +57,6 @@ UserSchema.methods.setPassword = (password = "")->
 exports.User = mongoose.model "User",UserSchema
 exports.Device = mongoose.model "Device",DeviceSchema
 exports.Artwork = mongoose.model "Artwork",ArtworkSchema
-exports.Types = {
-    ObjectId:Schema.Types.ObjectId
-}
+exports.Types = mongoose.Types
 exports.User.schema
 exports.User.schema.path

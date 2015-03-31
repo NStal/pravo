@@ -25,6 +25,7 @@ server.post "/me/register",(req,res,next)->
                 else
                     res.error new Errors.UnknownError "fail to save user",{via:err}
                 return
+            req.session.userId = result.id
             res.success result.getClientJson()
             return
 server.post "/me/session",(req,res,next)->
@@ -45,15 +46,17 @@ server.all "*",(req,res,next)->
         next()
         return
     try
-        id = App.Model.Types.ObjectId.fromString req.session.userId
+        console.log "try cast",req.session.userId
+        id = App.Model.Types.ObjectId.createFromHexString req.session.userId
     catch e
-        App.warn "invalid user id",req.session.userId
+        App.warn "invalid user id",req.session.userId,e
         next()
         return
     App.Model.User.findOne {_id:id},(err,user)->
         if err
             App.error err
         req.user = user or null
+        console.log "set user",user.toJSON()
         next()
 # All router after this requires login
 server.all "*",(req,res,next)->
@@ -63,9 +66,12 @@ server.all "*",(req,res,next)->
     next()
 server.get "/me",(req,res,next)->
     if req.user
-        req.success req.user.getClientJson()
+        res.success req.user.getClientJson()
         return
     req.error new Errors.AuthorizationFailed()
+server.delete "/me",(req,res,next)->
+    req.user.remove ()->
+        res.success()
 server.delete "/me/session",(req,res,next)->
     req.session.destroy ()->
         res.success()
