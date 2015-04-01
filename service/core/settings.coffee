@@ -4,4 +4,6 @@ module.exports = {
     salt:"moemoeQ"
     host:"0.0.0.0"
     port:9999
+    store:"./store/"
+    artworkStore:"./store/artworks/"
 }

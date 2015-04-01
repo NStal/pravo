@@ -5,10 +5,28 @@ App = require "./app"
 Errors = App.Errors
 validator = require "validator"
 ArtworkSchema = new Schema {
-    width:Number
-    height:Number
+    width:{
+        type:Number
+        required:true
+    }
+    height:{
+        type:Number
+        required:true
+    }
     fetch:{}
-    origin:String
+    format:{
+        type:String
+        required:true
+    }
+    uid:{
+        type:String
+        required:true
+        unique:true
+    }
+    origin:{
+        type:String
+        required:true
+    }
 }
 DeviceSchema = new Schema {
     name:String
