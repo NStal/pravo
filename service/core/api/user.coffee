@@ -38,6 +38,9 @@ server.post "/me/session",(req,res,next)->
         if err
             res.error new Errors.ServerError "server error",{via:err}
             return
+        if not user
+            res.error new Errors.AuthorizationFailed("invalid email or password")
+            return
         req.session.userId = user.id
         res.success user.getClientJson()
 

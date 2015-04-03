@@ -5,7 +5,7 @@ server.get "/artworks",(req,res,next)->
     count = req.body.count or 20
     App.Model.Artwork.find({})
     .limit(count)
-    .offset(offset)
+    .skip(offset)
     .exec (err,results)->
         results ?= []
         res.success results
