@@ -28,6 +28,8 @@ ArtworkSchema = new Schema {
         required:true
     }
 }
+ArtworkSchema.virtual("src").get ()->
+    return "/artworks/assets/#{@uid}.#{@format}"
 DeviceSchema = new Schema {
     name:String
     width:

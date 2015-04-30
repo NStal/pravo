@@ -22,6 +22,7 @@ server.all "*",(req,res,next)->
         res.end "connecting db"
         return
     next()
+server.use "/artworks/assets",express.static App.settings.artworkStore
 require("./api/base")
 require("./api/artwork")
 require("./api/user")
