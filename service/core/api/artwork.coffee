@@ -3,7 +3,6 @@ server = App.server
 server.get "/artworks",(req,res,next)->
     offset = req.body.offset or 0
     count = req.body.count or 20
-    console.log "artwork!!"
     App.Model.Artwork.find({})
     .limit(count)
     .skip(offset)
